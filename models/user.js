@@ -2,23 +2,24 @@ const mongoose = require('mongoose');
 // core node module that has a password
 const crypto = require('crypto');
 // generate unique strings
-const uuidv = require('uuid/v1');
+const uuidv1 = require('uuid/v1');
 
 const userSchema = new mongoose.Schema({
   name: {
-    typr: String,
-    trim: true, // any space in the beginning or end will be trimmed
+    type: String,
+    // any space in the beginning or end will be trimmed
+    trim: true, 
     required: true,
     maxLength: 32
   },
   email: {
-    typr: String,
+    type: String,
     trim: true, 
     required: true,
     unique: 32
   },
   hashed_password: {
-    typr: String,
+    type: String,
     required: true
   },
   about: {
