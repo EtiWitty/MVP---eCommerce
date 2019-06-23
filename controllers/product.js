@@ -14,9 +14,42 @@ exports.create = ( req, res) => {
         error: 'Image could not be uploaded'
       });
     }
+
+    //check for all fields
+    const { 
+      name, 
+      description, 
+      price, 
+      category, 
+      quantity, 
+      shipping
+    } = fields;
+
+      if(
+        !name || 
+        !description || 
+        !price || 
+        !category || 
+        !quantity || 
+        !shipping
+        ) {
+          return res.status(400).json({
+            error: " All fields are required!"
+          });
+      }
+
     let product = new Product(fields);
 
+    // 1kb = 1000
+    // imb = 1000000
+
     if(files.photo) {
+      //console.log('FILES PHOTO: ',files.photo)
+      if (files.photo.size > 1000000) {
+        return res.status(400).json({
+          error: "image should be less than 1mb in size"
+        });
+      }
       product.photo.data = fs.readFileSync(files.photo.path);
       product.photo.contentType = files.photo.type;
     }
