@@ -57,7 +57,7 @@ exports.signout = (req, res) => {
 };
 
 // we use this as middleware to protect any routes
-exports.requiretSignin = expressJwt ({
+exports.requireSignin = expressJwt ({
   secret: process.env.JWT_SECRET,
   userCreateIndex: "auth"
 });
