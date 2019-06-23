@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { create, productById, read, remove, update, list, listRelated, listCategories, listBySearch  } = require('../controllers/product');
+const { create, productById, read, remove, update, list, listRelated, listCategories, listBySearch, photo } = require('../controllers/product');
 const { requireSignin, isAuth, isAdmin } = require('../controllers/auth');
 const { userById } = require('../controllers/user');
 
@@ -54,6 +54,12 @@ router.get('/products/categories', listCategories);
 //==============================SEARCH PRODUCT==========================
 
 router.post('/products/by/search', listBySearch);
+
+//==============================SEND PRODUCT PHOTO==========================
+
+router.post('/product/photo/:productId', photo);
+
+
 
 
 router.param('userId', userById);
