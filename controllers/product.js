@@ -1,11 +1,11 @@
 const formidable = require('formidable');
 const_ = require('lodash');
 const fs = require('fs');
-const Product = require('../models/category');
+const Product = require('../models/product');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
 
-exports.create = ( rea, res) => {
+exports.create = ( req, res) => {
   let form = new formidable.IncomingForm()
   form.keepExtensions = true
   form.parse(req, (err, fields, files) => {
