@@ -163,14 +163,14 @@ exports.update = (req, res) => {
 };
 
 
-//========================================================
+//========================READ LIST================================
 /* 
  
 Return the product based on sall and arrival 
 these are type of queries that can come from a client:
 
- *by sell = /products?sortBy=sold&order=des&limit=4
- *by arrival = /products?sortBy=createdAt&order=des&limit=4
+ *by sell = /products?sortBy=sold&order=desc&limit=4
+ *by arrival = /products?sortBy=createdAt&order=desc&limit=4
  *if no prams sent, then all products will return
 
  */
@@ -178,7 +178,7 @@ these are type of queries that can come from a client:
  exports.list = (req, res) => {
    let order = req.query.order ? req.query.order : 'asc'
    let sortBy = req.query.sortBy ? req.query.sortBy : '_id'
-   let limit = req.query.limit ? req.query.limit : 6
+   let limit = req.query.limit ? parseInt(req.query.limit) : 6
 
    Product.find()
       .select('-photo')
@@ -191,7 +191,32 @@ these are type of queries that can come from a client:
             error: 'Products not found'
           });
         }
-        res.send(products)
+        res.json(products)
       })
  } 
 
+//========================READ RELATED PRODUCTS================================
+
+/*
+
+* It will find the products based on the req product category
+* other products that has the same category, will be returned
+
+*/
+
+exports.listRelated = (req, res) => {
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6
+
+  // $ne in mongoDB means all related products exluding the product itself
+  Product.find({_id: { $ne: req.products }, category: req.product.category})
+    .limit(limit)
+    .populate('category', '_id name')
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error:'Products not found'
+        });
+      }
+      res.json(products); 
+    });
+};
