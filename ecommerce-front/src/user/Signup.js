@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../core/Layout';
-import { signup } from '../auth';
+import { signup } from '../auth'
 
 
 const Signup = () => {
-  //handle change method
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     name: '',
     email: '',
     password: '',
@@ -20,13 +19,10 @@ const Signup = () => {
       setValues({...values, error: false, [name]: event.target.value})
   }
 
-  
-
   const clickSubmit = (event) => {
       event.preventDefault();
-      setValues({...values, error: false})
-      signup({name, email, password})
-      .then(data => {
+      setValues({...values, error: false});
+      signup({ name, email, password }).then(data => {
         if(data.error) {
           setValues({...values, error: data.error, success: false})
         } else {
@@ -38,17 +34,17 @@ const Signup = () => {
   const signUpForm = () => (
       <form>
           <div className="form-group">
-              <lable className="text-muted">Name</lable>
+              <label className="text-muted">Name</label>
               <input onChange={handleChange('name')} type="text" className="form-control" value={name} />
           </div>
 
           <div className="form-group">
-              <lable className="text-muted">Email</lable>
+              <label className="text-muted">Email</label>
               <input onChange={handleChange('email')} type="email" className="form-control" value={email} />
           </div>
 
           <div className="form-group">
-              <lable className="text-muted">Password</lable>
+              <label className="text-muted">Password</label>
               <input onChange={handleChange('password')} type="password" className="form-control" value={password} />
           </div>
               <button onClick={ clickSubmit } className="btn btn-primary">Submit</button>
@@ -82,7 +78,7 @@ const Signup = () => {
         >
           {showSuccess()}
           {showError()}
-          { signUpForm() }
+          { signUpForm()}
         </Layout>
     );
   };   
