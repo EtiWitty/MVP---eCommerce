@@ -46,7 +46,7 @@ const AdminDashboard = () => {
 				</div>
 			</div>
 		</Layout>
-	)
-}
+	);
+};
 
 export default AdminDashboard;
