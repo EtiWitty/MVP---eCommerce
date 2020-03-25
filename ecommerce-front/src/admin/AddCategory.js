@@ -12,13 +12,13 @@ const AddCategory = () => {
 	const { user, token } = isAuthenticated();
 
 	const handleChange = (e) => {
-		setError('');
+		// setError('');
 		setName(e.target.value);
 	}
 
 	const clickSubmit = (e) => {
 		e.preventDefault();
-		setError('');
+		// setError('');
 		setSuccess(false);
 
 		// make request to API to create category
