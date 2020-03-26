@@ -2,12 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth';
 import{ Link } from 'react-router-dom';
-import { createProduct } from './apiAdmin';
-
-
+import { createProduct, getCategories } from './apiAdmin';
 
 const AddProduct = () => {
-	
 	const [values, setValues] = useState({
 		name:'',
 		description: '',
@@ -38,11 +35,22 @@ const AddProduct = () => {
 		createdProduct,
 		redirectToProfile,
 		formData
-
 	} = values;
 
+	//load categories and set data
+	const init = () => {
+		getCategories()
+			.then(data => {
+				if(data.error) {
+					setValues({...values, error: data.error});
+				} else {
+					setValues({...values, categories: data, formData: new FormData()});
+				}
+			});
+	};
+
 	useEffect(() => {
-		setValues({...values, formData: new FormData()})
+		init()
 	}, []);
 	
 
@@ -51,7 +59,7 @@ const AddProduct = () => {
 		formData.set(name, value);
 		setValues({ ...values,[name]: value });
 
-	}
+	};
 
 	const clickSubmit = (event) => {
 		event.preventDefault();
@@ -74,7 +82,7 @@ const AddProduct = () => {
 					});
 				}
 			});
-	}
+	};
 
 	const newPostForm = () => (
 		<form className="mb-3" onSubmit={clickSubmit}>
@@ -103,14 +111,17 @@ const AddProduct = () => {
 			<div className="form-group">
 				<label>Category</label>
 					<select onChange={handleChange('category')} className="form-control">
-						<option value="5e7ad0f4c2335e1aa9aed4ed">node</option>
-						<option value="5e7ad0f4c2335e1aa9aed4ed">PHP</option>
+						<option>Please select</option>
+						{categories && categories.map((category, index) => (
+							<option key={index} value={category._id}>{category.name}</option>
+						))}	
 					</select>
 			</div>
 
 			<div className="form-group">
 				<label>Shipping</label>
 					<select onChange={handleChange('shipping')} className="form-control">
+						<option>Please select</option>
 						<option value="0">No</option>
 						<option value="1">Yes</option>
 					</select>
@@ -122,7 +133,6 @@ const AddProduct = () => {
 			</div>
 
 			<button className="btn btn-outline-primary">Create Product</button>
-
 		</form>
 	)
 
