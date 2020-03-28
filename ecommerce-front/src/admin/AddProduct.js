@@ -80,7 +80,8 @@ const AddProduct = () => {
 						createdProduct:data.name
 					});
 				}
-			});
+			}
+		);
 	};
 
 	const newPostForm = () => (
@@ -88,38 +89,38 @@ const AddProduct = () => {
 			<h4>Post Photo</h4>
 			<div className="form-group">
 				<label className="btn btn-secondary">
-					<input onChange={handleChange('photo')} type="file" name="photo" accept="image/*"/>
+					<input onChange={ handleChange('photo') } type="file" name="photo" accept="image/*"/>
 				</label>
 			</div>
 
 			<div className="form-group">
 				<label>Name</label>
-				<input onChange={handleChange('name')} type="text" className="form-control" value={name}/>
+				<input onChange={ handleChange('name') } type="text" className="form-control" value={ name }/>
 			</div>
 
 			<div className="form-group">
 				<label>Description</label>
-				<textarea onChange={handleChange('description')} type="text" className="form-control" value={description}/>
+				<textarea onChange={ handleChange('description') } type="text" className="form-control" value={ description }/>
 			</div>
 
 			<div className="form-group">
 				<label>Price</label>
-				<input onChange={handleChange('price')} type="number" className="form-control" value={price}/>
+				<input onChange={ handleChange('price') } type="number" className="form-control" value={ price }/>
 			</div>
 
 			<div className="form-group">
 				<label>Category</label>
-					<select onChange={handleChange('category')} className="form-control">
+					<select onChange={ handleChange('category') } className="form-control">
 						<option>Please select</option>
-						{categories && categories.map((category, index) => (
-							<option key={index} value={category._id}>{category.name}</option>
+						{ categories && categories.map((category, index) => (
+							<option key={ index } value={ category._id }>{ category.name }</option>
 						))}	
 					</select>
 			</div>
 
 			<div className="form-group">
 				<label>Shipping</label>
-					<select onChange={handleChange('shipping')} className="form-control">
+					<select onChange={ handleChange('shipping') } className="form-control">
 						<option>Please select</option>
 						<option value="0">No</option>
 						<option value="1">Yes</option>
@@ -128,7 +129,7 @@ const AddProduct = () => {
 
 			<div className="form-group">
 				<label>Quantity</label>
-				<input onChange={handleChange('quantity')} type="number" className="form-control" value={quantity}/>
+				<input onChange={ handleChange('quantity') } type="number" className="form-control" value={ quantity }/>
 			</div>
 
 			<button className="btn btn-outline-primary">Create Product</button>
@@ -136,15 +137,15 @@ const AddProduct = () => {
 	)
 
 	const showError = () => (
-		<div className="alert alert-danger" style={{ display: error ? '' :'none' }}>
+		<div className="alert alert-danger" style={ { display: error ? '' :'none' } }>
 			{ error }
 		</div>
 	)
 
 	const showSuccess = () => (
-		<div className="alert alert-info" style={{display: createdProduct ? '' :'none'}}>
+		<div className="alert alert-info" style={ { display: createdProduct ? '' :'none' } }>
 			<h2>
-				{`${createdProduct} is created!`}
+				{ `${ createdProduct } is created!` }
 			</h2>
 		</div>
 	)
@@ -160,7 +161,7 @@ const AddProduct = () => {
 	
 
 	return (
-		<Layout title="Add a new product" description={ `Hello ${user.name}!, Ready to add a new product?`} >
+		<Layout title="Add a new product" description={ `Hello ${ user.name }!, Ready to add a new product?` } >
 			<div className="row">
 				<div className="col-md-8 offset-md-2">
 					{ showLoading() }
