@@ -44,7 +44,7 @@ const Home = () => {
           }
         </div>
 
-      <h2 className="mb-4">Best Sellers</h2>
+        <h2 className="mb-4">Best Sellers</h2>
         <div className="row">
           { productBySell.map((product, i) => (
               <Card key={i} product={product} />
