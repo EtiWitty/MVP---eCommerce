@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
-import Card from './Card';
-import { getCategories } from './apiCore';
+import Card from "./Card";
+import { getCategories } from "./apiCore";
 import { set } from "mongoose";
 
 const Shop = () => {
-	const [getCategories, setCategories] = useState([]);
-	const [getError, setError] = useState(false);
+	const [categories, setCategories] = useState([]);
+	const [error, setError] = useState(false);
 
 	const init = () => {
 		getCategories().then(data => {
 			if(data.error) {
-				setError(data.error)
+				setError(data.error);
 			} else {
 				setCategories(data);
 			}
